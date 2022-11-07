@@ -6,36 +6,42 @@ namespace Weapons
     [RequireComponent(typeof(Rigidbody2D))]
     public class Bullet : MonoBehaviour
     {
-        [SerializeField] private LayerMask destroyLayersBullet;
-
-        private Rigidbody2D _rigidbody2D;
-        private int _damage;
-
+        protected Rigidbody2D Rigidbody2D;
+        protected int Damage;
+        protected float ShootForce;
+        
         public void InitBullet(int damageBullet, float shootForce)
         {
-            _damage = damageBullet;
-            _rigidbody2D = GetComponent<Rigidbody2D>();
+            Damage = damageBullet;
+            ShootForce = shootForce;
+            Rigidbody2D = GetComponent<Rigidbody2D>();
 
-            _rigidbody2D.AddForce(transform.right * shootForce);
+            Rigidbody2D.AddForce(transform.right * shootForce);
         }
 
-        private void OnTriggerEnter2D(Collider2D col)
+        protected virtual void OnTriggerEnter2D(Collider2D col)
         {
             if (col.CompareTag("BulletDestroyer"))
-                Destroy(gameObject);
+                DestroyBullet();
 
             // In this case, it is better not to use TryGetComponent
             IAttacked attacked = col.transform.GetComponentInParent<IAttacked>();
             if (attacked == null) return;
 
-            attacked.GetDamage(_damage);
+            attacked.GetDamage(Damage);
             BeforeBulletDestroy();
-            Destroy(gameObject);
+            DestroyBullet();
         }
 
         protected virtual void BeforeBulletDestroy()
         {
             Debug.Log("Maybe some effects");
+        }
+
+        protected void DestroyBullet()
+        {
+            BeforeBulletDestroy();
+            Destroy(gameObject);
         }
     }
 }

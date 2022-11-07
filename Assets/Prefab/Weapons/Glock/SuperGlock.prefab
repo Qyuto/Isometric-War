@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4158541221786992505}
   - component: {fileID: 8704999933270205664}
   m_Layer: 0
-  m_Name: Glock
+  m_Name: SuperGlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f231db4463cf41b7a28f52c38e8d3973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDamage: 10
-  shotForce: 180
-  shotDelay: 0.2
+  weaponDamage: 30
+  shotForce: 300
+  shotDelay: 0.05
   weaponInfo: {fileID: 0}
-  bulletInfo: {fileID: 11400000, guid: fc6d2aa86e5084a4e892aeb3e5cde145, type: 2}
+  bulletInfo: {fileID: 11400000, guid: b53453c8d2bfe7c48afc37d8ddfbc1d5, type: 2}

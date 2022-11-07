@@ -1,46 +1,55 @@
 ﻿using System;
 using Interface;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Weapons
 {
     public abstract class Weapon : MonoBehaviour, IWeaponShot
     {
-        [SerializeField] private int weaponDamage;
-        [SerializeField] private float shotForce;
         [SerializeField] private float shotDelay;
+        [SerializeField] private float spreadFactor;
 
-        [SerializeField] private WeaponInfo weaponInfo;
-        [SerializeField] private BulletInfo bulletInfo;
+        [SerializeField] protected int weaponDamage;
+        [SerializeField] protected float shotForce;
+        [SerializeField] protected WeaponInfo weaponInfo;
+        [SerializeField] protected BulletInfo bulletInfo;
 
-        private float _shotTime;
-        private bool _canShoot;
+        protected float ShotTime;
+        protected bool CanShoot;
 
         public Weapon InitWeapon(Transform shotPoint) =>
             Instantiate(this, shotPoint.transform.position, shotPoint.localRotation, shotPoint);
 
         private void Update()
         {
-            _shotTime += Time.deltaTime;
-            if (_shotTime >= shotDelay)
-                _canShoot = true;
+            ShotTime += Time.deltaTime;
+            if (ShotTime >= shotDelay)
+                CanShoot = true;
         }
 
 
         public virtual void Shoot(Transform shotPoint)
         {
-            if (!_canShoot) return;
+            if (!CanShoot) return;
 
-            Bullet bullet = Instantiate(bulletInfo.GetBulletPrefab(), shotPoint.transform.position, shotPoint.rotation);
+            Bullet bullet = Instantiate(bulletInfo.GetBulletPrefab(), shotPoint.transform.position,
+                CreateSpread(transform.rotation));
             bullet.InitBullet(weaponDamage + bulletInfo.GetBulletDamage(), shotForce);
 
             ResetShootTimer();
         }
 
-        private void ResetShootTimer()
+        protected Quaternion CreateSpread(Quaternion rotation)
         {
-            _canShoot = false;
-            _shotTime = 0f;
+            Vector3 temp = rotation.eulerAngles;
+            return Quaternion.Euler(temp.x, temp.y, temp.z + Random.Range(-spreadFactor, spreadFactor));
+        }
+
+        protected void ResetShootTimer()
+        {
+            CanShoot = false;
+            ShotTime = 0f;
         }
     }
 }

@@ -1142,7 +1142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shotPoint: {fileID: 1524781073}
-  currentWeapon: {fileID: 8704999933270205664, guid: b1b81cd6641a7f94cbd9919f2962686a, type: 3}
+  currentWeapon: {fileID: 8704999933270205664, guid: fe06ceb51b62f8d4bbac5269ee317254, type: 3}
 --- !u!114 &569704840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1155,7 +1155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4928f443a5b044d29165fd668dccb37f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 50000
   healthUI: {fileID: 2031732636}
 --- !u!114 &569704841
 MonoBehaviour:
@@ -2731,6 +2731,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1524781073}
+  - component: {fileID: 1524781074}
   m_Layer: 9
   m_Name: shotPoint
   m_TagString: Untagged
@@ -2753,6 +2754,19 @@ Transform:
   m_Father: {fileID: 569704835}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1524781074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524781072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a618cf136f0c44529e4d76f1020caae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rayDistance: 5
 --- !u!1 &1533943957
 GameObject:
   m_ObjectHideFlags: 0
@@ -3400,8 +3414,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1105bfd6f646446489ca85f57362f4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthUI: {fileID: 2031732636}
-  dialogueUI: {fileID: 1930678070}
 --- !u!1001 &1873780915
 PrefabInstance:
   m_ObjectHideFlags: 0

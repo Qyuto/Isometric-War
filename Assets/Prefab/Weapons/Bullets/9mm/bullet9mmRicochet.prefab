@@ -151,10 +151,10 @@ GameObject:
   - component: {fileID: 2221530245776291342}
   - component: {fileID: 8078778338684439017}
   - component: {fileID: -2171652059215525375}
-  - component: {fileID: 1891819984477806779}
   - component: {fileID: 5782057766399102725}
+  - component: {fileID: -8273679707162397709}
   m_Layer: 0
-  m_Name: bullet9mm
+  m_Name: bullet9mmRicochet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -249,21 +249,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1891819984477806779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9142720933401357550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22042240e6dd47a582bc375645ae96c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyLayersBullet:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!58 &5782057766399102725
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -280,3 +265,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-8273679707162397709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9142720933401357550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5712b13080de43ccaa3b22f81d0eecea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRicochetCount: 3
+  ricochetMask:
+    serializedVersion: 2
+    m_Bits: 128
