@@ -3,7 +3,7 @@ using Weapons;
 
 namespace NPC.Enemy
 {
-    [RequireComponent(typeof(NpcHealth))]
+    [RequireComponent(typeof(EntityHealth))]
     public class NpcEnemyAttack : MonoBehaviour
     {
         [SerializeField] private Weapon botWeapon;

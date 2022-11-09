@@ -1,28 +1,16 @@
-﻿using Interface;
-using Interface.UI;
+﻿using Interface.UI;
+using NPC;
 using UnityEngine;
 
 namespace Player
 {
-    public class PlayerHealth : MonoBehaviour, IAttacked, ICured
+    public class PlayerHealth : EntityHealth
     {
-        [SerializeField] private int health;
         [SerializeField] private HealthUI healthUI; //Todo: Create pattern facade in next time
 
-        public void GetDamage(int damage)
+        private void Start()
         {
-            health -= damage;
-            healthUI.ChangeHealthSlider(health);
-            if (health <= 0)
-            {
-                Destroy(gameObject);
-            }
-        }
-
-        public void AddHealth(int value)
-        {
-            health += value;
-            healthUI.ChangeHealthSlider(health);
+            OnHealthChange += i => healthUI.ChangeHealthSlider(i);
         }
     }
 }
