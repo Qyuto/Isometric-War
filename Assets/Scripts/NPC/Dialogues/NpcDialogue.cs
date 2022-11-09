@@ -1,12 +1,14 @@
-﻿using NPC.Dialogues;
+﻿using Interface;
+using NPC.Dialogues;
 using UnityEngine;
 
 namespace NPC.Main
 {
-    public class NpcDialogue : MonoBehaviour, IDialogue
+    public class NpcDialogue : MonoBehaviour, IDialogue, IInteractive
     {
         [SerializeField] private string npcName;
         [SerializeField] private DialogueInfo[] dialogueInfos;
+        [SerializeField] private InteractiveType interactiveType;
         private int _pos = -1;
 
         public string GetDialogueText()
@@ -18,14 +20,10 @@ namespace NPC.Main
             return dialogueInfos[_pos].GetDialogueText();
         }
 
-        public string[] GetDialogueResponseArray()
-        {
-            return dialogueInfos[_pos].GetResponseArray();
-        }
+        public string[] GetDialogueResponseArray() => dialogueInfos[_pos].GetResponseArray();
 
-        public string GetName()
-        {
-            return npcName;
-        }
+        public string GetName() => npcName;
+
+        public InteractiveType GetInteractiveType() => interactiveType;
     }
 }

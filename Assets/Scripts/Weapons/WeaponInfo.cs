@@ -2,7 +2,7 @@
 
 namespace Weapons
 {
-    [CreateAssetMenu(fileName = "weaponInfo", menuName = "Weapon", order = 0)]
+    [CreateAssetMenu(fileName = "weaponInfo", menuName = "Isometric/Weapon", order = 0)]
     public class WeaponInfo : ScriptableObject
     {
         [SerializeField] private string weaponDescription;

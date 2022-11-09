@@ -2,7 +2,7 @@
 
 namespace Weapons
 {
-    [CreateAssetMenu(fileName = "bulletName", menuName = "Bullet", order = 0)]
+    [CreateAssetMenu(fileName = "bulletName", menuName = "Isometric/Bullet", order = 0)]
     public class BulletInfo : ScriptableObject
     {
         [SerializeField] private Bullet bulletPrefab;
