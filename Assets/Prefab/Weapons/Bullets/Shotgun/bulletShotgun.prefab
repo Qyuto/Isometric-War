@@ -121,7 +121,7 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65342
+      atime1: 65535
       atime2: 0
       atime3: 0
       atime4: 0
@@ -277,3 +277,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22042240e6dd47a582bc375645ae96c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletParticle: {fileID: 0}

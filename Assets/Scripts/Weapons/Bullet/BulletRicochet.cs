@@ -37,9 +37,6 @@ namespace Weapons
             transform.rotation = Quaternion.LookRotation(Vector3.forward, Quaternion.Euler(0, 0, 90) * reflect);
             Rigidbody2D.velocity = Vector2.zero;
             Rigidbody2D.AddForce(transform.right * ShootForce);
-
-
-            Debug.Log("Bullet Ricochet");
         }
     }
 }

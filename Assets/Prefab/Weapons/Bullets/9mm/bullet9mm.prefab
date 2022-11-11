@@ -105,7 +105,7 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 0.5882353}
-      key1: {r: 0, g: 0, b: 0, a: 0.5882353}
+      key1: {r: 1, g: 1, b: 1, a: 0.5882353}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -277,6 +277,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22042240e6dd47a582bc375645ae96c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyLayersBullet:
-    serializedVersion: 2
-    m_Bits: 128
+  bulletParticle: {fileID: 0}

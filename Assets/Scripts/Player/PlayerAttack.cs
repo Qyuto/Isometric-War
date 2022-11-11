@@ -19,5 +19,11 @@ namespace Player
             if (Input.GetMouseButton(0))
                 currentWeapon.Shoot(shotPoint);
         }
+
+        public void ChangeCurrentWeapon( Weapon newWeapon )
+        {
+            Destroy(currentWeapon.gameObject);
+            currentWeapon = newWeapon.InitWeapon(shotPoint);
+        }
     }
 }

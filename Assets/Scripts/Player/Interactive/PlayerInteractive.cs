@@ -1,18 +1,17 @@
-﻿using System;
-using Interface;
+﻿using Interface;
 using Interface.Items;
 using NPC;
 using UnityEngine;
 
 namespace Player
 {
+    //Todo: Divide this class into two subclasses or come up with a name suitable for the actions of this class
     public class PlayerInteractive : MonoBehaviour
     {
         [SerializeField] private float rayLength;
         [SerializeField] private LayerMask interactiveMask;
         [SerializeField] private PlayerDialogue playerDialogue;
         [SerializeField] private PlayerInventory playerInventory;
-
 
         private RaycastHit2D _hit2D;
         private ISelected _selected;
@@ -36,24 +35,15 @@ namespace Player
         {
             ISelected selected = RaycastFinder<ISelected>();
 
-            if (selected == null)
-            {
-                if (_selected == null) return;
-                _selected.Undo();
-                _selected = null;
-                return;
-            }
-
-            if (_selected != null && _selected != selected)
-            {
-                _selected.Undo();
-                _selected = null;
-            }
+            if (selected == null) return;
+            if (selected != _selected)
+                _selected?.Undo();
 
 
-            _selected = selected;
             selected.Select();
+            _selected = selected;
         }
+
 
         private void FindInteractive()
         {
@@ -64,7 +54,6 @@ namespace Player
 
         private void StartInteractive(GameObject interactiveObject, InteractiveType type)
         {
-            _selected.Select();
             switch (type)
             {
                 case InteractiveType.Dialogue:
@@ -74,9 +63,10 @@ namespace Player
                 case InteractiveType.Item:
                     if (interactiveObject.TryGetComponent(out IUsable usable))
                     {
-                        _selected = null;
                         playerInventory.InitInventory(usable);
+                        _selected = null;
                     }
+
                     break;
             }
         }

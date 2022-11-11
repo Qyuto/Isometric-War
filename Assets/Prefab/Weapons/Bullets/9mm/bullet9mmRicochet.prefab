@@ -105,7 +105,7 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 0.5882353}
-      key1: {r: 0, g: 0, b: 0, a: 0.5882353}
+      key1: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -277,6 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5712b13080de43ccaa3b22f81d0eecea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletParticle: {fileID: 0}
   maxRicochetCount: 3
   ricochetMask:
     serializedVersion: 2

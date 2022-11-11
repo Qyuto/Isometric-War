@@ -1,17 +1,16 @@
-﻿using System;
-using Interface;
+﻿using Interface;
 using Interface.Items;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Items
 {
-    [RequireComponent(typeof(Rigidbody2D),typeof(ItemUI))]
-    public  class Item : MonoBehaviour, IUsable, IInteractive ,ISelected
+    [RequireComponent(typeof(Rigidbody2D), typeof(ItemUI))]
+    public class Item : MonoBehaviour, IUsable, IInteractive, ISelected
     {
         [SerializeField] private ItemInfo itemInfo;
         [SerializeField] private InteractiveType interactiveType;
-        
+
         private ItemUI _itemUI;
         private Rigidbody2D _rigidbody2D;
 
@@ -30,8 +29,8 @@ namespace Items
         public void Init()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
-            _rigidbody2D.AddTorque(Random.Range(-5,5));
-            _rigidbody2D.AddForce(transform.right * Random.Range(-10,10));
+            _rigidbody2D.AddTorque(Random.Range(-5, 5));
+            _rigidbody2D.AddForce(transform.right * Random.Range(-10, 10));
         }
 
         public ItemInfo GetItemInfo() => itemInfo;
