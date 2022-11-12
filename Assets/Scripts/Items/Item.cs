@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 namespace Items
 {
     [RequireComponent(typeof(Rigidbody2D), typeof(ItemUI))]
-    public class Item : MonoBehaviour, IUsable, IInteractive, ISelected
+    public class Item : MonoBehaviour, IInteractive, ISelected, IUsableItem
     {
         [SerializeField] private ItemInfo itemInfo;
         [SerializeField] private InteractiveType interactiveType;

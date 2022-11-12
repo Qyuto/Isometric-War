@@ -61,7 +61,7 @@ namespace Player
                         playerDialogue.InitDialogue(dialogue);
                     break;
                 case InteractiveType.Item:
-                    if (interactiveObject.TryGetComponent(out IUsable usable))
+                    if (interactiveObject.TryGetComponent(out IUsableItem usable))
                     {
                         playerInventory.InitInventory(usable);
                         _selected = null;

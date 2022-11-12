@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 137971237637251552}
   - component: {fileID: 137971237637251553}
-  - component: {fileID: 137971237637251554}
   - component: {fileID: 7140749064322276484}
   - component: {fileID: 4259501687029750500}
   - component: {fileID: 3454594173555607961}
+  - component: {fileID: 2145538984}
+  - component: {fileID: 8802328890248359343}
   m_Layer: 8
   m_Name: TestItemGreen
   m_TagString: Untagged
@@ -89,20 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &137971237637251554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137971237637251555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a11b8ae9739040e5b42a36623096d38d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemInfo: {fileID: 11400000, guid: 629e0d59c21f7df4a8ce1be9165eac38, type: 2}
-  interactiveType: 1
 --- !u!61 &7140749064322276484
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -163,6 +150,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   localCanvas: {fileID: 468896304895634570}
+--- !u!114 &2145538984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137971237637251555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b75007c681ca4547a8f9bb643689cd76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomTpRange: {x: 4, y: 4}
+--- !u!114 &8802328890248359343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137971237637251555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e90bd7b84b4f988354e2d765c5f8e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInfo: {fileID: 11400000, guid: 629e0d59c21f7df4a8ce1be9165eac38, type: 2}
+  interactiveType: 1
+  activeBuster: {fileID: 2145538984}
 --- !u!1 &3503646543425695832
 GameObject:
   m_ObjectHideFlags: 0

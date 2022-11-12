@@ -2,9 +2,10 @@
 
 namespace Interface.Items
 {
-    public interface IUsable
+    public interface IUsableItem
     {
         public Item PickUp();
         public void Init();
+        public ItemInfo GetItemInfo();
     }
 }
