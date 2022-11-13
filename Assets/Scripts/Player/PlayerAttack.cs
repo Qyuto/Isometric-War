@@ -6,6 +6,7 @@ namespace Player
     public class PlayerAttack : MonoBehaviour
     {
         [SerializeField] private Transform shotPoint;
+        [SerializeField] private Weapon baseWeapon;
         [SerializeField] private Weapon currentWeapon;
 
         private void Start()
@@ -20,10 +21,10 @@ namespace Player
                 currentWeapon.Shoot(shotPoint);
         }
 
-        public void ChangeCurrentWeapon( Weapon newWeapon )
+        public void ChangeCurrentWeapon(Weapon newWeapon)
         {
             Destroy(currentWeapon.gameObject);
-            currentWeapon = newWeapon.InitWeapon(shotPoint);
+            currentWeapon = newWeapon == null ? baseWeapon.InitWeapon(shotPoint) : newWeapon.InitWeapon(shotPoint);
         }
     }
 }

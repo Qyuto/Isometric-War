@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de470e965254c34be40e2569b3dbcca, type: 3}
+  m_Name: TeleportBuster-Info
+  m_EditorClassIdentifier: 
+  rarity: 3
+  worldSprite: {fileID: 21300000, guid: 5d52b20f865aff242bfcb08c3b6f61a5, type: 3}
+  localItem: {fileID: -7130978721564528593, guid: 73838f95ec21cc949a37be601e451251, type: 3}
+  worldItem: {fileID: 6771709869295638478, guid: e3eb91f676dcbcb4bbf68e7170ba7998, type: 3}
+  itemName: Teleport
+  itemDescription: Teleport random position

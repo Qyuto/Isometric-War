@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de470e965254c34be40e2569b3dbcca, type: 3}
+  m_Name: MineBuster-Info
+  m_EditorClassIdentifier: 
+  rarity: 2
+  worldSprite: {fileID: 21300000, guid: 6027031a7453da24f95d0af9a2308c52, type: 3}
+  localItem: {fileID: -4758772748827635905, guid: 80caf0cc8eed03446a15284972255773, type: 3}
+  worldItem: {fileID: 949772961401746830, guid: 6cb4d79c7f60ecb4a9a7403c385667dc, type: 3}
+  itemName: Mine Buster
+  itemDescription: Just drop mine

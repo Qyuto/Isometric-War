@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 namespace Weapons
 {
-    public class Weapon : Item, IWeaponShot
+    public class Weapon : LocalItem, IWeaponShot
     {
         [SerializeField] private float shotDelay;
         [SerializeField] private float spreadFactor;
@@ -20,17 +20,7 @@ namespace Weapons
         public Weapon InitWeapon(Transform shotPoint)
         {
             Weapon clientWeapon = Instantiate(this, shotPoint.transform.position, shotPoint.localRotation, shotPoint);
-            PrepareForPlayer(clientWeapon);
-
             return clientWeapon;
-        }
-
-        private void PrepareForPlayer(Weapon weapon) //  I'm really not sure about this decision
-        {
-            weapon.GetComponent<Rigidbody2D>().isKinematic = true;
-            Destroy(weapon.GetComponent<Collider2D>());
-            Destroy(weapon.GetComponent<SpriteRenderer>());
-            Destroy(weapon.GetComponentInChildren<Canvas>().gameObject);
         }
 
         private void Update()

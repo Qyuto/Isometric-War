@@ -1,19 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
 
 namespace Items.Busters
 {
-    public abstract class ActiveBuster : MonoBehaviour
+    public abstract class ActiveBuster : LocalItem
     {
-        private bool _isInit;
+        protected bool IsInit;
 
-        public bool IsInit => _isInit;
+        protected Action OnBusterInitialized;
 
-        public abstract ActiveBuster GetComponent();
-
-        public virtual void InitBuster(ActiveBuster oldBuster)
+        public virtual void InitBuster()
         {
-            // Destroy(oldBuster.gameObject);
-            _isInit = true;
+            IsInit = true;
+            OnBusterInitialized?.Invoke();
         }
+
+        public virtual void Copy(ActiveBuster old)
+        {
+            itemInfo = old.itemInfo;
+        }
+
+        public abstract ActiveBuster GetBuster();
     }
 }

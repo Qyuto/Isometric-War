@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Items;
 using UnityEngine;
 
 namespace Interface.UI
@@ -18,9 +19,9 @@ namespace Interface.UI
             _baseImages = inventoryImageParent.GetComponentsInChildren<InventoryImage>().ToArray();
         }
 
-        public void UpdateImage(int index, Sprite sprite)
+        public void UpdateImage(int index, ItemInfo info)
         {
-            _baseImages[index].ChangeSprite(sprite);
+            _baseImages[index].ChangeSprite(info);
         }
 
         public void DeleteImage(int index)

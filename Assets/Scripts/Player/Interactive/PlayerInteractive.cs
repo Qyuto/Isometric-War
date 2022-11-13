@@ -1,5 +1,5 @@
 ﻿using Interface;
-using Interface.Items;
+using Items;
 using NPC;
 using UnityEngine;
 
@@ -36,8 +36,12 @@ namespace Player
             ISelected selected = RaycastFinder<ISelected>();
 
             if (selected == null) return;
-            if (selected != _selected)
-                _selected?.Undo();
+            if (selected != _selected && _selected != null)
+            {
+                _selected.Undo();
+                _selected = null;
+            }
+                
 
 
             selected.Select();

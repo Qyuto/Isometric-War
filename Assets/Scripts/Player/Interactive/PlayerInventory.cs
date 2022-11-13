@@ -1,5 +1,4 @@
 ﻿using System;
-using Interface.Items;
 using Interface.UI;
 using Items;
 using Items.Busters;
@@ -12,55 +11,50 @@ namespace Player
     {
         [SerializeField] private InventoryUI inventoryUI;
         [SerializeField] private PlayerAttack playerAttack;
-        [SerializeField] private Item[] playerInventory = new Item[3];
+        [SerializeField] private PlayerBusters playerBusters;
+        [SerializeField] private LocalItem[] playerInventory = new LocalItem[3];
 
         private int _posIndex;
-        private Action _onPlayerInitInventory;
         private Action<int> _onPlayerChangeIndex;
-
+        private Action _onPlayerInitItem;
+        private Action _onPlayerDropItem;
 
         private void Awake()
         {
-            _onPlayerChangeIndex = null;
-            _onPlayerInitInventory = null;
-
-            _onPlayerInitInventory = OnPlayerInitInventory;
-            _onPlayerChangeIndex += OnPlayerChangeIndex;
-        }
-
-
-        public void InitInventory(IUsableItem usable)
-        {
-            if (playerInventory[_posIndex] != null) DropItem();
-            playerInventory[_posIndex] = usable.PickUp();
-
-            _onPlayerInitInventory();
-            inventoryUI.UpdateImage(_posIndex, playerInventory[_posIndex].GetItemInfo().UIItemSprite);
+            _onPlayerChangeIndex = OnPlayerChangeIndex;
+            _onPlayerInitItem = OnPlayerInitItem;
+            _onPlayerDropItem = OnPlayerDropItem;
         }
 
 
         private void Update()
         {
             SetIndex();
-
-            if (Input.GetKeyDown(KeyCode.F))
-                DropItem();
+            if (Input.GetKeyDown(KeyCode.F)) DropLocalItem();
         }
 
-        // Todo: Delete scripts that were added by this item 
-        private void DropItem()
+        public void InitInventory(IUsableItem usable)
         {
-            if (playerInventory[_posIndex] == null) return;
+            if (ItemIsExists(_posIndex)) DropLocalItem();
 
-            var newItem = Instantiate(playerInventory[_posIndex], transform.position + transform.right,
-                Quaternion.identity);
-            if (playerInventory[_posIndex] as ItemBuster)
-                PlayerBusterCollections.Instance.RemoveBuster(_posIndex);
+            playerInventory[_posIndex] = usable.PickUp();
+            inventoryUI.UpdateImage(_posIndex, usable.GetItemInfo());
+            OnPlayerInitItem();
+        }
 
+
+        private void DropLocalItem()
+        {
+            if (!ItemIsExists(_posIndex)) return;
+
+            WorldItem worldItem = playerInventory[_posIndex].DropItem(transform.position + transform.right);
+            worldItem.InitItem();
+            OnPlayerDropItem();
             playerInventory[_posIndex] = null;
             inventoryUI.DeleteImage(_posIndex);
-            newItem.Init();
         }
+
+        private bool ItemIsExists(int index) => playerInventory[_posIndex] != null;
 
         private void SetIndex()
         {
@@ -72,37 +66,44 @@ namespace Player
                 _onPlayerChangeIndex(2);
         }
 
-
-        private void OnPlayerInitInventory()
+        private void OnPlayerInitItem()
         {
+            Debug.Log($"Add new item in inventory: {playerInventory[_posIndex].name}");
             switch (playerInventory[_posIndex])
             {
+                case ActiveBuster activeBuster:
+                    playerBusters.AddNewBuster(activeBuster.GetBuster());
+                    break;
                 case Weapon weapon:
-                {
                     playerAttack.ChangeCurrentWeapon(weapon);
                     break;
-                }
-                case ItemBuster buster:
-                {
-                    PlayerBusterCollections.Instance.AddBuster(buster.ActiveBuster, _posIndex);
-                    break;
-                }
             }
         }
 
-        private void OnPlayerChangeIndex(int index)
+        private void OnPlayerChangeIndex(int value)
         {
-            _posIndex = index;
+            _posIndex = value;
+            inventoryUI.SetSelectedImage(value);
+
             switch (playerInventory[_posIndex])
             {
                 case Weapon weapon:
-                {
                     playerAttack.ChangeCurrentWeapon(weapon);
                     break;
-                }
             }
+        }
 
-            inventoryUI.SetSelectedImage(_posIndex);
+        private void OnPlayerDropItem()
+        {
+            switch (playerInventory[_posIndex])
+            {
+                case ActiveBuster activeBuster:
+                    playerBusters.RemoveBuster(activeBuster);
+                    break;
+                case Weapon weapon:
+                    playerAttack.ChangeCurrentWeapon(null);
+                    break;
+            }
         }
     }
 }

@@ -1,19 +1,32 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 namespace Items
 {
-    [CreateAssetMenu(fileName = "itemInfo", menuName = "Isometric/Item", order = 0)]
+    [CreateAssetMenu(fileName = "Item info", menuName = "Item/Info", order = 0)]
     public class ItemInfo : ScriptableObject
     {
-        [SerializeField] private Sprite uiItemSprite;
-        [SerializeField] private Item itemPrefab;
-        
-        [SerializeField] private int itemCost;
+        [SerializeField] private ItemRarity rarity = ItemRarity.SoBad;
+        [SerializeField] private Sprite worldSprite;
+        [SerializeField] private LocalItem localItem;
+        [SerializeField] private WorldItem worldItem;
         [SerializeField] private string itemName;
+        [SerializeField] private string itemDescription;
 
 
-        public Item ItemPrefab => itemPrefab;
-        public Sprite UIItemSprite => uiItemSprite;
+        public ItemRarity Rarity => rarity;
+        public LocalItem LocalItem => localItem;
+        public WorldItem WorldItem => worldItem;
+        public Sprite WorldSprite => worldSprite;
+        public string ItemName => itemName;
+        public string ItemDescription => itemDescription;
+    }
+
+    public enum ItemRarity
+    {
+        SoBad = 0,
+        Bad,
+        Normal,
+        Good,
+        OhGod
     }
 }
