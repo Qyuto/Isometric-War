@@ -1,6 +1,7 @@
 ﻿using Interface;
 using Items;
 using NPC;
+using NPC.Trader;
 using UnityEngine;
 
 namespace Player
@@ -12,6 +13,7 @@ namespace Player
         [SerializeField] private LayerMask interactiveMask;
         [SerializeField] private PlayerDialogue playerDialogue;
         [SerializeField] private PlayerInventory playerInventory;
+        [SerializeField] private PlayerTrade playerTrade;
 
         private RaycastHit2D _hit2D;
         private ISelected _selected;
@@ -41,7 +43,6 @@ namespace Player
                 _selected.Undo();
                 _selected = null;
             }
-                
 
 
             selected.Select();
@@ -69,6 +70,14 @@ namespace Player
                     {
                         playerInventory.InitInventory(usable);
                         _selected = null;
+                    }
+
+                    break;
+                case InteractiveType.Trader:
+                    if (interactiveObject.TryGetComponent(out ITrader trader))
+                    {
+                        Debug.Log("Get trader items");
+                        playerTrade.StartTrading(trader.GetTraderItems());
                     }
 
                     break;

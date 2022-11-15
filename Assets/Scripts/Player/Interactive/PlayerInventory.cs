@@ -1,7 +1,7 @@
 ﻿using System;
-using Interface.UI;
 using Items;
 using Items.Busters;
+using UI.Inventory;
 using UnityEngine;
 using Weapons;
 

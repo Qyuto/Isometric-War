@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Shotgun-Info
   m_EditorClassIdentifier: 
   rarity: 2
+  itemCost: 90
   worldSprite: {fileID: 21300000, guid: 69f340bd4bf8b7e4c906f90783d2ca73, type: 3}
   localItem: {fileID: 4023232232665092172, guid: 4ba56aa58a3eb2146a598c7a43e472bc, type: 3}
   worldItem: {fileID: 7062738769680215563, guid: 7501d1e1cf119e34e8155f64102a0c57, type: 3}
-  itemName: 
-  itemDescription: 
+  itemName: Shotgun
+  itemDescription: Its shotgun

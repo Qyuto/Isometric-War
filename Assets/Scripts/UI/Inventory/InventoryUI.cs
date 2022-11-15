@@ -2,11 +2,12 @@
 using Items;
 using UnityEngine;
 
-namespace Interface.UI
+namespace UI.Inventory
 {
     public class InventoryUI : MonoBehaviour
     {
         [SerializeField] private Transform inventoryImageParent;
+        [SerializeField] private ItemInfoHelperUI helperUI;
         private InventoryImage[] _baseImages;
 
         private void Awake()
@@ -21,7 +22,8 @@ namespace Interface.UI
 
         public void UpdateImage(int index, ItemInfo info)
         {
-            _baseImages[index].ChangeSprite(info);
+            _baseImages[index].InitInventoryImage(info, helperUI);
+            _baseImages[index].ChangeSprite();
         }
 
         public void DeleteImage(int index)

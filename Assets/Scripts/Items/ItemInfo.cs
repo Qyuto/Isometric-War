@@ -6,6 +6,7 @@ namespace Items
     public class ItemInfo : ScriptableObject
     {
         [SerializeField] private ItemRarity rarity = ItemRarity.SoBad;
+        [SerializeField] private int itemCost;
         [SerializeField] private Sprite worldSprite;
         [SerializeField] private LocalItem localItem;
         [SerializeField] private WorldItem worldItem;
@@ -14,6 +15,7 @@ namespace Items
 
 
         public ItemRarity Rarity => rarity;
+        public int ItemCost => itemCost;
         public LocalItem LocalItem => localItem;
         public WorldItem WorldItem => worldItem;
         public Sprite WorldSprite => worldSprite;

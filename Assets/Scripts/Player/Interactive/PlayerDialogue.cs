@@ -1,5 +1,5 @@
-﻿using Interface.UI;
-using NPC;
+﻿using NPC;
+using UI.Main;
 using UnityEngine;
 
 namespace Player

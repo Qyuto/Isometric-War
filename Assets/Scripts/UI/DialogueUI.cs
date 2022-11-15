@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Interface.UI
+namespace UI.Main
 {
     public class DialogueUI : MonoBehaviour
     {
