@@ -1,26 +1,39 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Map
 {
-    public enum MapObjects
+    public enum Tiles
     {
         None,
         Floor,
         Wall
     }
+    
+    public enum MapObjects
+    {
+        Enemy,
+        Player,
+        Boss,
+        GarbageCollector
+    }
 
     public class MapController : MonoBehaviour
     {
         private readonly List<Room> _rooms = new();
-        private MapObjects[,] _board;
+        private Tiles[,] _board;
+        private GameObject[,] _boardObjects;
         [SerializeField] private int width, height;
         [SerializeField] private int minRoomSize, maxRoomSize;
-        [SerializeField] private List<GameObject> tiles;
-        [SerializeField] private GameObject inst;
         [SerializeField] private int corridorChance;
+        [SerializeField] private int enemyCount;
+        [SerializeField] private int maxEnemyPerRoom, minEnemyPerRoom;
+        [SerializeField] private GameObject inst;
+        [SerializeField] private List<GameObject> tiles;
+        [SerializeField] private List<GameObject> mapObjects;
 
 
         private void Draw()
@@ -29,22 +42,35 @@ namespace Map
             {
                 inst.name = room.ToString();
                 var roomInstance = Instantiate(inst, transform, true);
+                foreach (var roomObject in room.RoomObjects)
+                {
+                    var x = (int)Random.Range(room.Rect.x + 1, room.Rect.xMax - 1);
+                    var y = (int)Random.Range(room.Rect.y + 1, room.Rect.yMax - 1);
+                    while (_boardObjects[x, y] != null)
+                    {
+                        x = (int)Random.Range(room.Rect.x + 1, room.Rect.xMax - 1);
+                        y = (int)Random.Range(room.Rect.y + 1, room.Rect.yMax - 1);
+                    }
+                    _boardObjects[x, y] = roomObject;
+                    Instantiate(roomObject, new Vector3(x, y),
+                        Quaternion.identity);
+                }
                 for (var y = room.Rect.y; y <= room.Rect.yMax; y++)
                 {
                     for (var x = room.Rect.x; x <= room.Rect.xMax; x++)
                     {
                         if ((x == room.Rect.x || x == room.Rect.xMax || y == room.Rect.y || y == room.Rect.yMax)
-                            && _board[(int)(x + 1), (int)(y + 1)] == MapObjects.None)
+                            && _board[(int)(x + 1), (int)(y + 1)] == Tiles.None)
                         {
-                            _board[(int)(x + 1), (int)(y + 1)] = MapObjects.Wall;
-                            Instantiate(tiles[(int)MapObjects.Wall - 1], new Vector3(x, y),
+                            _board[(int)(x + 1), (int)(y + 1)] = Tiles.Wall;
+                            Instantiate(tiles[(int)Tiles.Wall - 1], new Vector3(x, y),
                                     Quaternion.identity)
                                 .transform.SetParent(roomInstance.transform);
                         }
                         else
                         {
-                            _board[(int)(x + 1), (int)(y + 1)] = MapObjects.Floor;
-                            Instantiate(tiles[(int)MapObjects.Floor - 1], new Vector3(x, y),
+                            _board[(int)(x + 1), (int)(y + 1)] = Tiles.Floor;
+                            Instantiate(tiles[(int)Tiles.Floor - 1], new Vector3(x, y),
                                     Quaternion.identity)
                                 .transform.SetParent(roomInstance.transform);
                         }
@@ -58,31 +84,33 @@ namespace Map
             {
                 for (var j = 1; j < height; j++)
                 {
-                    if (_board[i + 1, j + 1] == MapObjects.Floor)
+                    switch (_board[i + 1, j + 1])
                     {
-                        Instantiate(tiles[(int)MapObjects.Floor - 1], new Vector3(i, j, 0f), Quaternion.identity)
-                            .transform.SetParent(corridors.transform);
-                    }
-                    else if (_board[i + 1, j + 1] == MapObjects.None
-                             && CheckBoardPosition(i + 1, j + 1, MapObjects.Floor))
-                    {
-                        Instantiate(tiles[(int)MapObjects.Wall - 1], new Vector3(i, j, 0f), Quaternion.identity)
-                            .transform.SetParent(corridors.transform);
+                        case Tiles.Floor:
+                            Instantiate(tiles[(int)Tiles.Floor - 1], new Vector3(i, j, 0f), Quaternion.identity)
+                                .transform.SetParent(corridors.transform);
+                            break;
+                        case Tiles.None when CheckBoardPosition(i + 1, j + 1, Tiles.Floor):
+                            Instantiate(tiles[(int)Tiles.Wall - 1], new Vector3(i, j, 0f), Quaternion.identity)
+                                .transform.SetParent(corridors.transform);
+                            break;
+                        case Tiles.Wall:
+                            break;
                     }
                 }
             }
         }
 
-        private bool CheckBoardPosition(int x, int y, MapObjects mapObject)
+        private bool CheckBoardPosition(int x, int y, Tiles tile)
         {
-            return _board[x - 1, y - 1] == mapObject
-                   || _board[x - 1, y] == mapObject
-                   || _board[x - 1, y + 1] == mapObject
-                   || _board[x, y - 1] == mapObject
-                   || _board[x, y + 1] == mapObject
-                   || _board[x + 1, y - 1] == mapObject
-                   || _board[x + 1, y] == mapObject
-                   || _board[x + 1, y + 1] == mapObject;
+            return _board[x - 1, y - 1] == tile
+                   || _board[x - 1, y] == tile
+                   || _board[x - 1, y + 1] == tile
+                   || _board[x, y - 1] == tile
+                   || _board[x, y + 1] == tile
+                   || _board[x + 1, y - 1] == tile
+                   || _board[x + 1, y] == tile
+                   || _board[x + 1, y + 1] == tile;
         }
 
         private void Generate(Room room, int step)
@@ -90,12 +118,14 @@ namespace Map
             if (room.IsLeaf()
                 && (room.Rect.width - minRoomSize >= maxRoomSize || room.Rect.height - minRoomSize >= maxRoomSize))
             {
-                room.Split(minRoomSize, maxRoomSize);
+                room.Split(minRoomSize);
 
                 Generate(room.Left, step + 10);
                 Generate(room.Right, step + 10);
+                
                 var direction = Random.Range(0.0f, 1.0f) > 0.5;
                 CreateCorridor(room.Left, room.Right, room.IsHorizontal, direction);
+                
                 if (Random.Range(0, corridorChance) - step > 0
                     && !room.Left.IsLeaf() && !room.Right.IsLeaf())
                 {
@@ -106,6 +136,37 @@ namespace Map
             {
                 room.CreateRoom(minRoomSize);
                 _rooms.Add(room);
+            }
+        }
+
+        private void GenerateRoomObjects()
+        {
+            Room room;
+            for (var mapObject = (int)MapObjects.Player; mapObject < mapObjects.Count; mapObject++)
+            {
+                room = _rooms[Random.Range(0, _rooms.Count)];
+                while (room.RoomObjects.Count != 0)
+                {
+                    room = _rooms[Random.Range(0, _rooms.Count)];
+                }
+                room.RoomObjects.Add(mapObjects[mapObject]);
+            }
+
+            while (enemyCount > 0)
+            {
+                room = _rooms[Random.Range(0, _rooms.Count)];
+                while (room.RoomObjects.Count != 0)
+                {
+                    room = _rooms[Random.Range(0, _rooms.Count)];
+                }
+
+                var enemyCountInRoom = Random.Range(Math.Min(minEnemyPerRoom, enemyCount),
+                    Math.Min(maxEnemyPerRoom, enemyCount));
+                for (var i = 0; i < enemyCountInRoom; i++)
+                {
+                    room.RoomObjects.Add(mapObjects[(int)MapObjects.Enemy]);
+                }
+                enemyCount -= enemyCountInRoom;
             }
         }
 
@@ -129,22 +190,11 @@ namespace Map
 
             if (w != 0)
             {
-                if (Random.Range(0, 1) > 2)
-                {
-                    corridors.Add(new Rect(lPoint.x, lPoint.y, Mathf.Abs(w) + 1, 1));
+                corridors.Add(h < 0
+                    ? new Rect(lPoint.x, lPoint.y, 1, Mathf.Abs(h))
+                    : new Rect(lPoint.x, rPoint.y, 1, Mathf.Abs(h)));
 
-                    corridors.Add(h < 0
-                        ? new Rect(rPoint.x, lPoint.y, 1, Mathf.Abs(h))
-                        : new Rect(rPoint.x, lPoint.y, 1, -Mathf.Abs(h)));
-                }
-                else
-                {
-                    corridors.Add(h < 0
-                        ? new Rect(lPoint.x, lPoint.y, 1, Mathf.Abs(h))
-                        : new Rect(lPoint.x, rPoint.y, 1, Mathf.Abs(h)));
-
-                    corridors.Add(new Rect(lPoint.x, rPoint.y, Mathf.Abs(w) + 1, 1));
-                }
+                corridors.Add(new Rect(lPoint.x, rPoint.y, Mathf.Abs(w) + 1, 1));
             }
             else
             {
@@ -152,13 +202,14 @@ namespace Map
                     ? new Rect((int)lPoint.x, (int)lPoint.y, 1, Mathf.Abs(h))
                     : new Rect((int)rPoint.x, (int)rPoint.y, 1, Mathf.Abs(h)));
             }
+            
             foreach (var corridor in corridors)
             {
-                for (var i = (int)corridor.x; i <= corridor.xMax; i++)
+                for (var corridorX = (int)corridor.x; corridorX <= corridor.xMax; corridorX++)
                 {
-                    for (var j = (int)corridor.y; j <= corridor.yMax; j++)
+                    for (var corridorY = (int)corridor.y; corridorY <= corridor.yMax; corridorY++)
                     {
-                        _board[i + 1, j + 1] = MapObjects.Floor;
+                        _board[corridorX + 1, corridorY + 1] = Tiles.Floor;
                     }
                 }
             }
@@ -167,8 +218,10 @@ namespace Map
         private void Start()
         {
             var root = new Room(new Rect(0, 0, width, height));
-            _board = new MapObjects[width + 2, height + 2];
+            _board = new Tiles[width + 2, height + 2];
+            _boardObjects = new GameObject[width, height];
             Generate(root, 0);
+            GenerateRoomObjects();
             Draw();
         }
     }

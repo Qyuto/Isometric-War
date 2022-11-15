@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,6 +10,7 @@ namespace Map
         public Room Left, Right;
         public Rect Rect { get; private set; }
         public bool IsLeft, IsHorizontal;
+        public readonly List<GameObject> RoomObjects = new List<GameObject>();
 
         public Room(Rect rect)
         {
@@ -20,7 +22,7 @@ namespace Map
             return Left == null && Right == null;
         }
 
-        public void Split(int minRoomSize, int maxRoomSize=100)
+        public void Split(int minRoomSize)
         {
             bool splitH;
             if (Rect.width / Rect.height >= 1.25)
@@ -64,23 +66,10 @@ namespace Map
 
             if (isHor != IsHorizontal)
             {
-                if (mode)
-                {
-                    var room1 = Left.GetRoom(isLeft, isHor, true);
-                    return room1;
-                }
-                var room2 = Right.GetRoom(isLeft, isHor, false);
-                return room2;
+                return mode ? Left.GetRoom(isLeft, isHor, true) : Right.GetRoom(isLeft, isHor, false);
             }
 
-            if (!isLeft)
-            {
-                var lRoom = Left.GetRoom(false, isHor, mode);
-                return lRoom;
-            }
-
-            var rRoom = Right.GetRoom(true, isHor, mode);
-            return rRoom;
+            return !isLeft ? Left.GetRoom(false, isHor, mode) : Right.GetRoom(true, isHor, mode);
         }
 
 
