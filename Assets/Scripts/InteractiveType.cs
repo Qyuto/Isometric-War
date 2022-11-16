@@ -2,5 +2,6 @@
 {
     Dialogue,
     Trader,
-    Item
+    Item,
+    Buyer
 }

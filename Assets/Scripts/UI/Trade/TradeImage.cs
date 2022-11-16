@@ -30,7 +30,11 @@ namespace UI.Trade
         {
             Debug.Log("Try to buy item");
             if (_playerTrade.GetMoney() >= LocalItemInfo.ItemCost)
+            {
                 LocalItemInfo.LocalItem.DropItem(_playerTrade.GetDropItemPosition());
+                _playerTrade.ReduceMoney(LocalItemInfo.ItemCost);
+            }
+                
         }
     }
 }

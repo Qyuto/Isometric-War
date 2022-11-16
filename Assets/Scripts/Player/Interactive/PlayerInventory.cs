@@ -68,7 +68,6 @@ namespace Player
 
         private void OnPlayerInitItem()
         {
-            Debug.Log($"Add new item in inventory: {playerInventory[_posIndex].name}");
             switch (playerInventory[_posIndex])
             {
                 case ActiveBuster activeBuster:

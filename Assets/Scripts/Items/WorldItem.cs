@@ -20,11 +20,13 @@ namespace Items
 
         public void Select()
         {
+            if (_worldItemUI == null) return;
             _worldItemUI.ShowLocalCanvas();
         }
 
         public void Undo()
         {
+            if (_worldItemUI == null) return;
             _worldItemUI.HideLocalCanvas();
         }
 

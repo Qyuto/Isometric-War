@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MineBuster-Info
   m_EditorClassIdentifier: 
   rarity: 2
+  itemCost: 40
   worldSprite: {fileID: 21300000, guid: 6027031a7453da24f95d0af9a2308c52, type: 3}
   localItem: {fileID: -4758772748827635905, guid: 80caf0cc8eed03446a15284972255773, type: 3}
   worldItem: {fileID: 949772961401746830, guid: 6cb4d79c7f60ecb4a9a7403c385667dc, type: 3}
