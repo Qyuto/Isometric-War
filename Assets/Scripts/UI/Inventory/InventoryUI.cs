@@ -7,7 +7,7 @@ namespace UI.Inventory
     public class InventoryUI : MonoBehaviour
     {
         [SerializeField] private Transform inventoryImageParent;
-        [SerializeField] private ItemInfoHelperUI helperUI;
+        [SerializeField] private ItemInfoHelperUI infoHelperUI;
         private InventoryImage[] _baseImages;
 
         private void Awake()
@@ -22,7 +22,7 @@ namespace UI.Inventory
 
         public void UpdateImage(int index, ItemInfo info)
         {
-            _baseImages[index].InitInventoryImage(info, helperUI);
+            _baseImages[index].InitInventoryImage(info, infoHelperUI);
             _baseImages[index].ChangeSprite();
         }
 

@@ -16,6 +16,7 @@ namespace UI.Inventory
         private void Awake()
         {
             _itemGroupInfo = GetComponent<CanvasGroup>();
+            gameObject.SetActive(false);
         }
 
         public CanvasGroup ItemGroupInfo => _itemGroupInfo;

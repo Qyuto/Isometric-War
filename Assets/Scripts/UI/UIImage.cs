@@ -14,24 +14,23 @@ namespace UI.Main
 
         protected virtual void ShowItemInfo()
         {
-            if (LocalItemInfo == null) return;
+            if (LocalItemInfo == null || HelperUI == null) return;
+            HelperUI.gameObject.SetActive(true);
 
             HelperUI.ItemName.text = LocalItemInfo.ItemName;
             HelperUI.ItemDescription.text = LocalItemInfo.ItemDescription;
             SetItemRarityText(LocalItemInfo.Rarity);
-            HelperUI.ItemGroupInfo.gameObject.SetActive(true);
         }
 
 
         private void HideItemInfo()
         {
+            if (HelperUI == null) return;
             HelperUI.ItemGroupInfo.gameObject.SetActive(false);
         }
 
-
         public void ChangeSprite()
         {
-            Debug.Log(transform.position);
             childrenImage.sprite = LocalItemInfo.WorldSprite;
             SetItemRarityText(LocalItemInfo.Rarity);
             TurnImage(true);
