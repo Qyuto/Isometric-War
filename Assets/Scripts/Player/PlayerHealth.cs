@@ -6,11 +6,12 @@ namespace Player
 {
     public class PlayerHealth : EntityHealth
     {
-        [SerializeField] private HealthUI healthUI; //Todo: Create pattern facade in next time
+        private HealthUI _healthUI;
 
         private void Start()
         {
-            OnHealthChange += i => healthUI.ChangeHealthSlider(i);
+            _healthUI = GameObject.Find("PlayerLayer").GetComponent<HealthUI>();
+            OnHealthChange += i => _healthUI.ChangeHealthSlider(i);
         }
     }
 }
