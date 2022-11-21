@@ -12,12 +12,12 @@ namespace NPC.Enemy
 
         private float _shootTimer;
         private bool _canShoot;
-        private Weapon[] _weapons;
+        private WeaponBase[] _weapons;
 
         private void Start()
         {
             otherShootPoint.Add(shootPoint);
-            _weapons = new Weapon[otherShootPoint.Count];
+            _weapons = new WeaponBase[otherShootPoint.Count];
             UpdateWeapons();
         }
 
@@ -38,7 +38,7 @@ namespace NPC.Enemy
         {
             if (!_canShoot) return;
             for (int i = 0; i < _weapons.Length; i++)
-                _weapons[i].Shoot(otherShootPoint[i]);
+                _weapons[i].Attack(otherShootPoint[i]);
             _canShoot = false;
             _shootTimer = 0f;
         }

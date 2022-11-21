@@ -1,6 +1,6 @@
 ﻿namespace Weapons
 {
-    public class Glock : Weapon
+    public class Glock : RangeWeapon
     {
         
     }

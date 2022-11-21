@@ -73,7 +73,7 @@ namespace Player
                 case ActiveBuster activeBuster:
                     playerBusters.AddNewBuster(activeBuster.GetBuster());
                     break;
-                case Weapon weapon:
+                case WeaponBase weapon:
                     playerAttack.ChangeCurrentWeapon(weapon);
                     break;
             }
@@ -86,7 +86,7 @@ namespace Player
 
             switch (playerInventory[_posIndex])
             {
-                case Weapon weapon:
+                case WeaponBase weapon:
                     playerAttack.ChangeCurrentWeapon(weapon);
                     break;
             }
@@ -99,7 +99,7 @@ namespace Player
                 case ActiveBuster activeBuster:
                     playerBusters.RemoveBuster(activeBuster);
                     break;
-                case Weapon weapon:
+                case WeaponBase weapon:
                     playerAttack.ChangeCurrentWeapon(null);
                     break;
             }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Weapons
 {
-    public class MultiWeapon : Weapon
+    public class MultiWeapon : RangeWeapon
     {
         [Tooltip("The number of bullets during the shot")] [SerializeField]
         private int bullets;
@@ -14,7 +14,7 @@ namespace Weapons
         
         public override void Shoot(Transform shotPoint)
         {
-            if (!CanShoot || _isShooting) return;
+            if (!CanAttack || _isShooting) return;
             StopAllCoroutines();
             
             StartCoroutine(MultiShoot(shotPoint));

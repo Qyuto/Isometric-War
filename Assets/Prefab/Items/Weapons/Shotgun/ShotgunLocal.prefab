@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: 9870e630fb8ba6d47a6797e7ff4db247, type: 2}
-  shotDelay: 0.8
-  spreadFactor: 20
+  attackDelay: 1
   weaponDamage: 30
+  spreadFactor: 20
   shotForce: 300
   bulletInfo: {fileID: 11400000, guid: ed281b08c9264d441958381ad89fc1df, type: 2}
   bullets: 5
