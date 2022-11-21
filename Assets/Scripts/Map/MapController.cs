@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
 namespace Map
@@ -35,6 +36,7 @@ namespace Map
         [SerializeField] private List<GameObject> tiles;
         [SerializeField] private List<GameObject> mapObjects;
 
+        private Tilemap _tilemap;
 
         private void Draw()
         {

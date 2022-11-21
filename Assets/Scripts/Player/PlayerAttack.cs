@@ -1,30 +1,23 @@
-﻿using UnityEngine;
+﻿using NPC;
+using UnityEngine;
 using Weapons;
 
 namespace Player
 {
-    public class PlayerAttack : MonoBehaviour
+    public class PlayerAttack : EntityAttack
     {
-        [SerializeField] private Transform shotPoint;
         [SerializeField] private Weapon baseWeapon;
-        [SerializeField] private Weapon currentWeapon;
-
-        private void Start()
-        {
-            if (currentWeapon == null) return;
-            currentWeapon = currentWeapon.InitWeapon(shotPoint);
-        }
 
         private void Update()
         {
             if (Input.GetMouseButton(0))
-                currentWeapon.Shoot(shotPoint);
+                base.Attack();
         }
 
         public void ChangeCurrentWeapon(Weapon newWeapon)
         {
-            Destroy(currentWeapon.gameObject);
-            currentWeapon = newWeapon == null ? baseWeapon.InitWeapon(shotPoint) : newWeapon.InitWeapon(shotPoint);
+            Destroy(entityWeapon.gameObject);
+            entityWeapon = newWeapon == null ? baseWeapon.InitWeapon(shootPoint) : newWeapon.InitWeapon(shootPoint);
         }
     }
 }

@@ -1,38 +1,36 @@
-﻿using Interface;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace NPC.Enemy
 {
-    [RequireComponent(typeof(IWeaponShot), typeof(NpcEnemyAttack))]
-    public class NpcEnemyAggressor : MonoBehaviour
+    [RequireComponent(typeof(EntityAttack))]
+    public class EnemyAggressor : MonoBehaviour
     {
         [SerializeField] private float aggressorRadius;
         [SerializeField] private LayerMask playerMask;
 
-        private NpcEnemyAttack _enemyAttack;
-        private IWeaponShot _attacker;
+        private EntityAttack _enemyAttack;
+        protected Collider2D _target;
 
         private void Awake()
         {
-            _attacker = GetComponent<IWeaponShot>();
-            _enemyAttack = GetComponent<NpcEnemyAttack>();
+            _enemyAttack = GetComponent<EntityAttack>();
         }
 
         private void Update()
         {
-            FindEnemy();
+            FindTarget();
         }
 
-        private void FindEnemy()
+        protected virtual void FindTarget()
         {
-            Collider2D target = Physics2D.OverlapCircle(transform.position, aggressorRadius, playerMask);
+            _target = Physics2D.OverlapCircle(transform.position, aggressorRadius, playerMask);
 
-            if (target == null) return;
-            RotateToEnemy(target.transform);
+            if (_target == null) return;
+            RotateToTarget(_target.transform);
             _enemyAttack.Attack();
         }
 
-        private void RotateToEnemy(Transform enemy)
+        private void RotateToTarget(Transform enemy)
         {
             Vector3 direction = enemy.transform.position - transform.position;
             Vector3 rotatedVectorToTarget = Quaternion.Euler(0, 0, 90) * direction;

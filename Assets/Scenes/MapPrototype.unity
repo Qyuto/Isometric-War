@@ -909,10 +909,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d744610ee8b6455eaa37a611de0e507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 60
-  height: 40
-  minRoomSize: 5
-  maxRoomSize: 10
+  width: 200
+  height: 180
+  minRoomSize: 20
+  maxRoomSize: 40
   corridorChance: 50
   enemyCount: 50
   maxEnemyPerRoom: 5
