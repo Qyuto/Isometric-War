@@ -1,37 +1,26 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Events;
+﻿using UnityEngine;
 
 namespace NPC.Enemy
 {
-    public class EnemyAgentMove : MonoBehaviour
+    public class EnemyAgentMove : AgentMove
     {
-        [SerializeField] private float stopDistance;
-        private NavMeshAgent _agent;
+        [SerializeField] private float dangerDistance;
+        private Vector3 _destination;
 
-        private void Awake()
+        protected override void SetAgentDestination(Transform target)
         {
-            _agent = GetComponent<NavMeshAgent>();
-            _agent.updateRotation = false;
-            _agent.updateUpAxis = false;
-            _agent.stoppingDistance = stopDistance;
-        }
-
-        public void InitAgent(UnityEvent<Transform> unityEvent)
-        {
-            unityEvent.AddListener((SetAgentDestination));
-        }
-
-        private void SetAgentDestination(Transform target)
-        {
-            _agent.SetDestination(target.position);
+            if ((transform.position - target.position).magnitude < dangerDistance)
+                _destination = transform.position + (transform.right * -dangerDistance);
+            else
+                _destination = target.position;
+            Agent.SetDestination(_destination);
         }
 
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, stopDistance);
+            Gizmos.DrawWireSphere(transform.position, dangerDistance);
+            Gizmos.DrawWireSphere(_destination, 0.5f);
         }
     }
 }

@@ -10,11 +10,14 @@ namespace Weapons
 
         protected float AttackTime;
         protected bool CanAttack;
+        protected bool IsPlayerWeapon;
 
-        public  WeaponBase InitWeapon(Transform attackPoint)
+        public WeaponBase InitWeapon(Transform attackPoint, bool isPlayerWeapon)
         {
             WeaponBase clientWeapon = Instantiate(this, attackPoint.transform.position, attackPoint.localRotation,
                 attackPoint);
+
+            clientWeapon.IsPlayerWeapon = isPlayerWeapon;
             return clientWeapon;
         }
 
@@ -27,6 +30,8 @@ namespace Weapons
 
         public abstract void Attack(Transform shotPoint);
 
+        
+        
         protected void ResetShootTimer()
         {
             CanAttack = false;

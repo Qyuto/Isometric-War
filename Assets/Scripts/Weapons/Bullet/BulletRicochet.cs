@@ -15,10 +15,10 @@ namespace Weapons
             if (col.CompareTag("BulletDestroyer"))
                 Ricochet();
 
+            if (!col.CompareTag(EnemyTag)) return;
             // In this case, it is better not to use TryGetComponent
             IAttacked attacked = col.transform.GetComponentInParent<IAttacked>();
             if (attacked == null) return;
-
 
             attacked.GetDamage(Damage);
             DestroyBullet();

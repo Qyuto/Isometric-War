@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - BulletDestroyer
+  - EnemyNpc
   layers:
   - Default
   - TransparentFX

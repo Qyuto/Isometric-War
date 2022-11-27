@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 40177012545609439}
   m_Layer: 0
   m_Name: model
-  m_TagString: Untagged
+  m_TagString: EnemyNpc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 1280511047579122711}
   m_Layer: 0
   m_Name: StaticEnemyNpc
-  m_TagString: Untagged
+  m_TagString: EnemyNpc
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73732265f08a45f4ab6452ce260dee7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerType: 1
   entityWeapon: {fileID: 7251378999741276593, guid: 8cc48b60e9627a64fabdd1796fa9a216, type: 3}
   shootPoint: {fileID: 40177012789496546}
   enemyDelayShoot: 1

@@ -7,15 +7,17 @@ namespace Weapons
     public class Bullet : MonoBehaviour
     {
         [SerializeField] private ParticleSystem bulletParticle;
-        
+
+        protected string EnemyTag;
         protected Rigidbody2D Rigidbody2D;
         protected int Damage;
         protected float ShootForce;
 
-        public void InitBullet(int damageBullet, float shootForce)
+        public void InitBullet(int damageBullet, float shootForce, string enemyTag)
         {
             Damage = damageBullet;
             ShootForce = shootForce;
+            EnemyTag = enemyTag;
 
             Rigidbody2D = GetComponent<Rigidbody2D>();
             Rigidbody2D.AddForce(transform.right * shootForce);
@@ -23,14 +25,14 @@ namespace Weapons
 
         protected virtual void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.CompareTag("BulletDestroyer"))
-                DestroyBullet();
+            if (col.CompareTag("BulletDestroyer")) DestroyBullet();
+
+            if (!col.CompareTag(EnemyTag)) return;
             // In this case, it is better not to use TryGetComponent
             IAttacked attacked = col.transform.GetComponentInParent<IAttacked>();
             if (attacked == null) return;
 
             attacked.GetDamage(Damage);
-            BeforeBulletDestroy();
             DestroyBullet();
         }
 

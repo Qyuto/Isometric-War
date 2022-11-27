@@ -7,6 +7,7 @@ namespace Items.Busters
     public class Mine : MonoBehaviour
     {
         [SerializeField] private int mineDamage;
+        [SerializeField] private ParticleSystem explodeParticle;
         [SerializeField] private float explosionRadius;
         [SerializeField] private float explosionDelay;
 
@@ -25,10 +26,13 @@ namespace Items.Busters
                 attacked?.GetDamage(mineDamage);
             }
 
-            Debug.Log("Mine explosion");
+            SpawnExplosionParticle();
             Destroy(gameObject);
         }
-
+        private void SpawnExplosionParticle()
+        {
+            Instantiate(explodeParticle, transform.position, explodeParticle.transform.rotation);
+        }
         private void OnDrawGizmosSelected()
         {
             Gizmos.DrawSphere(transform.position, explosionRadius);

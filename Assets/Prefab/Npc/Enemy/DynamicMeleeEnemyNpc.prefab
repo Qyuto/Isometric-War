@@ -46,13 +46,14 @@ GameObject:
   - component: {fileID: 571771492262951126}
   - component: {fileID: 1611024540}
   - component: {fileID: 2022269523108399581}
+  - component: {fileID: 2037720681}
   m_Layer: 0
   m_Name: DynamicMeleeEnemyNpc
-  m_TagString: Untagged
+  m_TagString: EnemyNpc
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &40177012848522068
 Transform:
   m_ObjectHideFlags: 0
@@ -97,7 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 188c7435766a473a96befde399eca54b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityWeapon: {fileID: 4023232232665092172, guid: e0d16b35066f24f4396f25ae957a8a39, type: 3}
+  ownerType: 1
+  entityWeapon: {fileID: 1202839269732015265, guid: b77c68180ac7ba34984d3d0442b63d18, type: 3}
   shootPoint: {fileID: 40177012789496546}
 --- !u!114 &481919564988477838
 MonoBehaviour:
@@ -139,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54ccbe8303dc4ecf88e9006e265cfa40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopDistance: 0
+  dangerDistance: 0
 --- !u!195 &2022269523108399581
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -162,6 +164,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2037720681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40177012848522070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4ca68e8eaa4b6b802024f83a2af817, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1098696385095566593
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +251,7 @@ GameObject:
   - component: {fileID: 2964692183635510830}
   m_Layer: 0
   m_Name: Triangle (1)
-  m_TagString: Untagged
+  m_TagString: EnemyNpc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -412,7 +426,7 @@ GameObject:
   - component: {fileID: 8964027837761819496}
   m_Layer: 0
   m_Name: Triangle
-  m_TagString: Untagged
+  m_TagString: EnemyNpc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

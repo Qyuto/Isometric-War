@@ -11,16 +11,22 @@ namespace Weapons
 
         public override void Attack(Transform shotPoint)
         {
-            if(!CanAttack) return;
+            if (!CanAttack) return;
             Shoot(shotPoint);
             ResetShootTimer();
         }
 
         public virtual void Shoot(Transform shotPoint)
         {
+            InstantiateBullet(shotPoint);
+        }
+
+        protected void InstantiateBullet(Transform shotPoint)
+        {
             Bullet bullet = Instantiate(bulletInfo.GetBulletPrefab(), shotPoint.transform.position,
                 CreateSpread(shotPoint.rotation));
-            bullet.InitBullet(weaponDamage + bulletInfo.GetBulletDamage(), shotForce);
+            bullet.InitBullet(weaponDamage + bulletInfo.GetBulletDamage(), shotForce,
+                IsPlayerWeapon ? "EnemyNpc" : "Player");
         }
 
         protected Quaternion CreateSpread(Quaternion rotation)

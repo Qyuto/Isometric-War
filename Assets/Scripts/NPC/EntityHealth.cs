@@ -8,11 +8,16 @@ namespace NPC
     {
         [SerializeField] private int health;
         protected Action<int> OnHealthChange;
-
         private void Awake()
         {
             OnHealthChange = null;
         }
+        public void AddHealthAction(Action<int> action)
+        {
+            OnHealthChange += action;
+        }
+
+        public int GetHealth() => health;
 
         public void GetDamage(int damage)
         {

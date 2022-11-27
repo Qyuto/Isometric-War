@@ -7,16 +7,16 @@ namespace Weapons
     {
         [Tooltip("The number of bullets during the shot")] [SerializeField]
         private int bullets;
-    
+
         [SerializeField] private float multiShootDelay;
 
         private bool _isShooting;
-        
+
         public override void Shoot(Transform shotPoint)
         {
             if (!CanAttack || _isShooting) return;
             StopAllCoroutines();
-            
+
             StartCoroutine(MultiShoot(shotPoint));
         }
 
@@ -25,11 +25,10 @@ namespace Weapons
             _isShooting = true;
             for (int i = 0; i < bullets; i++)
             {
-                Bullet bullet = Instantiate(bulletInfo.GetBulletPrefab(), shotPoint.transform.position,
-                    CreateSpread(shotPoint.rotation));
-                bullet.InitBullet(weaponDamage + bulletInfo.GetBulletDamage(), shotForce);
+                InstantiateBullet(shotPoint);
                 yield return new WaitForSeconds(multiShootDelay);
             }
+
             _isShooting = false;
             ResetShootTimer();
         }

@@ -24,6 +24,7 @@ namespace NPC.Enemy
         private void Update()
         {
             _shootTimer += Time.deltaTime;
+            transform.Rotate(0,0,0.2f);
             if (_shootTimer >= enemyDelayShoot)
                 _canShoot = true;
         }
@@ -31,7 +32,7 @@ namespace NPC.Enemy
         private void UpdateWeapons()
         {
             for (int i = 0; i < _weapons.Length; i++)
-                _weapons[i] = entityWeapon.InitWeapon(otherShootPoint[i]);
+                _weapons[i] = entityWeapon.InitWeapon(otherShootPoint[i], false);
         }
 
         public override void Attack()

@@ -15,8 +15,8 @@ namespace NPC.Enemy
         protected override void FindTarget()
         {
             base.FindTarget();
-            if (_target == null) return;
-            _onEnemyFindTarget?.Invoke(_target.transform);
+            if (Target == null) return;
+            _onEnemyFindTarget?.Invoke(Target.transform);
         }
     }
 }

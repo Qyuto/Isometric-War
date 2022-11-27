@@ -7,7 +7,7 @@ namespace Player
     public class PlayerAttack : EntityAttack
     {
         [SerializeField] private WeaponBase baseWeapon;
-        
+
         private void Update()
         {
             if (Input.GetMouseButton(0))
@@ -17,7 +17,9 @@ namespace Player
         public void ChangeCurrentWeapon(WeaponBase newWeapon)
         {
             Destroy(entityWeapon.gameObject);
-            entityWeapon = newWeapon == null ? baseWeapon.InitWeapon(shootPoint) : newWeapon.InitWeapon(shootPoint);
+            entityWeapon = newWeapon == null
+                ? baseWeapon.InitWeapon(shootPoint, true)
+                : newWeapon.InitWeapon(shootPoint, true);
         }
     }
 }
